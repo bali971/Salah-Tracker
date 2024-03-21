@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    tools:context=".compass.QiblaFinder"
+    android:background="@color/colorPrimaryDark">
+    <TextView
+        android:id="@+id/aboutustitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Qiblah"
+        android:gravity="center"
+        android:layout_margin="5dp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/ralewaymedium"
+        android:textSize="24sp" />
+    <ImageView
+        android:id="@+id/backBtn"
+        android:layout_width="22dp"
+        android:layout_height="20dp"
+        android:layout_gravity="center_vertical"
+        android:rotation="180"
+        android:layout_margin="5dp"
+        app:srcCompat="@drawable/back"
+        app:tint="@color/white"
+        android:contentDescription="backButton" />
+    <ImageView
+        android:id="@+id/main_image_dial"
+        android:layout_width="320dp"
+        android:layout_height="320dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/dial" />
+    <ImageView
+        android:id="@+id/main_image_qibla"
+        android:layout_width="37dp"
+        android:layout_height="240dp"
+        android:layout_centerInParent="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/qibla_arrow" />
+<!--    <TextView-->
+<!--        android:id="@+id/text_up"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentTop="true"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:fontFamily="@font/ralewaymedium"-->
+<!--        android:textSize="18sp"-->
+<!--        android:layout_marginTop="70dp" />-->
+
+    <TextView
+        android:id="@+id/text_down"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/ralewaymedium"
+        android:layout_marginBottom="60dp" />
+
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        ads:adSize="BANNER"
+        android:translationZ="3dp"
+        android:layout_alignParentBottom="true"
+        ads:adUnitId="@string/banner_adunit_id_prod" />
+
+
+
+
+</RelativeLayout>
