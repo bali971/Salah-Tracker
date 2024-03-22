@@ -39,7 +39,7 @@ public class AlarmReceiver extends BroadcastReceiver {
             // Set AGAIN the alarm when device booted.
             return;
         }
-        Intent activityintent = new Intent(context, PrayerTimesLoader.class);
+        Intent activityintent = new Intent(context, PrayerSetup.class);
         AlarmNotif(intent, context, activityintent);
         System.out.println("Alarm Receiver");
     }

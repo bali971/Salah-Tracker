@@ -11,7 +11,9 @@ import nbsolution.muslim.app.BuildConfig;
 import nbsolution.muslim.app.R;
 import nbsolution.muslim.app.Activities.AboutUs;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
@@ -35,6 +37,7 @@ import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -56,12 +59,16 @@ public class Dashboard extends AppCompatActivity {
     RecyclerView dashboardRV;
     DashboardAdapter dashboardAdapter;
 
+    private static final String PREF_NAME = "FunctionCallPrefs";
+    private static final String LAST_CALL_DATE_KEY = "lastCallDate";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-        new PrayerTimesLoader(this).execute();
-
+        if (shouldCallFunction(this)){
+            new PrayerTimesLoader(this).execute();
+        }
 
         MobileAds.initialize(this);
         AdView mAdView = findViewById(R.id.adView);
@@ -199,6 +206,29 @@ public class Dashboard extends AppCompatActivity {
             if (drawable != null) {
                 drawable.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(textView.getContext(), color), PorterDuff.Mode.SRC_IN));
             }
+        }
+    }
+    public static boolean shouldCallFunction(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        long lastCallDate = prefs.getLong(LAST_CALL_DATE_KEY, 0);
+
+        // Get current date
+        Calendar currentDate = Calendar.getInstance();
+        currentDate.set(Calendar.HOUR_OF_DAY, 0);
+        currentDate.set(Calendar.MINUTE, 0);
+        currentDate.set(Calendar.SECOND, 0);
+        currentDate.set(Calendar.MILLISECOND, 0);
+
+        // Check if the function has been called today
+        if (lastCallDate < currentDate.getTimeInMillis()) {
+            // Function has not been called today, save current date as last call date
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putLong(LAST_CALL_DATE_KEY, currentDate.getTimeInMillis());
+            editor.apply();
+            return true;
+        } else {
+            // Function has already been called today
+            return false;
         }
     }
 
