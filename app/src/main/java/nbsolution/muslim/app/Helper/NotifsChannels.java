@@ -20,7 +20,6 @@ public class NotifsChannels extends Application {
                     getString(R.string.app_name),
                     NotificationManager.IMPORTANCE_HIGH
             );
-            channel1.setDescription(getString(R.string.notifications));
             NotificationManager manager = getSystemService(NotificationManager.class);
             manager.createNotificationChannel(channel1);
         }

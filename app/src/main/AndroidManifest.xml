@@ -56,7 +56,6 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
-        tools:targetApi="m"
         >
 
         <activity

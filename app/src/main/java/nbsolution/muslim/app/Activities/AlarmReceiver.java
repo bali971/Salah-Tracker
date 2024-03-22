@@ -1,7 +1,11 @@
 package nbsolution.muslim.app.Activities;
 
+import static androidx.core.content.ContextCompat.getSystemService;
+
 import android.Manifest;
 import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
@@ -10,6 +14,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
@@ -17,6 +22,7 @@ import androidx.core.app.NotificationManagerCompat;
 
 import nbsolution.muslim.app.R;
 import nbsolution.muslim.app.SharedData.SharedClass;
+import nbsolution.muslim.app.prayer.PrayerTimesLoader;
 import nbsolution.muslim.app.prayer.PrayerUtils;
 
 import java.util.Calendar;
@@ -33,7 +39,7 @@ public class AlarmReceiver extends BroadcastReceiver {
             // Set AGAIN the alarm when device booted.
             return;
         }
-        Intent activityintent = new Intent(context, PrayerSetup.class);
+        Intent activityintent = new Intent(context, PrayerTimesLoader.class);
         AlarmNotif(intent, context, activityintent);
         System.out.println("Alarm Receiver");
     }
@@ -109,7 +115,7 @@ public class AlarmReceiver extends BroadcastReceiver {
             createNotif(context, contentIntent5, id5, title5);
         }
 
-        if (id1 !=0) {
+        if (id1 != 0) {
             PrayerUtils.scheduleNotification(context, 1, hh1, mm1, tomorrow);
         } else if (id2 != 0) {
             PrayerUtils.scheduleNotification(context, 2, hh2, mm2, tomorrow);
@@ -122,8 +128,6 @@ public class AlarmReceiver extends BroadcastReceiver {
         }
 
 
-
-
     }
 
     public void createNotif(Context context, PendingIntent intent, int id, String ttl) {
@@ -132,6 +136,13 @@ public class AlarmReceiver extends BroadcastReceiver {
         Uri alarm = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + context.getPackageName() + "/" + R.raw.azan);
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         long[] pattern = {0, 100, 200, 300};
+        NotificationChannel channel1 = new NotificationChannel(
+                CHANNEL_1_ID,
+                "Salah Tracker",
+                NotificationManager.IMPORTANCE_HIGH
+        );
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.createNotificationChannel(channel1);
         Notification notification = new NotificationCompat.Builder(context, CHANNEL_1_ID)
                 .setSmallIcon(R.drawable.logo)
                 .setContentTitle(ttl)
@@ -144,11 +155,10 @@ public class AlarmReceiver extends BroadcastReceiver {
                 .setLights(16753737, 100, 1000)
                 .setContentIntent(intent)
                 .setAutoCancel(true)
-                .setOngoing(false)
-                .setOnlyAlertOnce(true)
                 .build();
         //  NotificationManager notificationManager=(NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
+
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -159,7 +169,7 @@ public class AlarmReceiver extends BroadcastReceiver {
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        notificationManager.notify(id, notification);
+        notificationManagerCompat.notify(id, notification);
     }
 
 }

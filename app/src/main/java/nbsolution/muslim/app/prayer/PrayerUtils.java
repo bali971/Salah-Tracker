@@ -72,14 +72,15 @@ public class PrayerUtils {
                 broadcastIntent.putExtra("NotifId1",type);
                 broadcastIntent.putExtra("NotifTimeMM1",mm);
                 broadcastIntent.putExtra("NotifTimeHH1",hh);
-                PendingIntent broadcast1 = PendingIntent.getBroadcast(context, 1, broadcastIntent ,PendingIntent.FLAG_MUTABLE);
+                PendingIntent broadcast1 = PendingIntent.getBroadcast(context, 1, broadcastIntent ,PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE);
+                cal.setTimeInMillis(System.currentTimeMillis());
                 cal.set(Calendar.HOUR_OF_DAY, hh);
                 cal.set(Calendar.MINUTE,mm);
                 cal.set(Calendar.SECOND,0);
                 cal.set(Calendar.DAY_OF_MONTH,day);
                 // alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), AlarmManager.INTERVAL_DAY, broadcast1);
                 // alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 1000*60*10,  broadcast1);
-                alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), broadcast1);
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), broadcast1);
                 break;
             }
             case 2: { //Dhuhr
@@ -88,13 +89,14 @@ public class PrayerUtils {
                 broadcastIntent.putExtra("NotifId2",type);
                 broadcastIntent.putExtra("NotifTimeMM2",mm);
                 broadcastIntent.putExtra("NotifTimeHH2",hh);
-                PendingIntent broadcast2 = PendingIntent.getBroadcast(context,2, broadcastIntent ,PendingIntent.FLAG_MUTABLE);
+                PendingIntent broadcast2 = PendingIntent.getBroadcast(context,2, broadcastIntent ,PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE);
+                cal.setTimeInMillis(System.currentTimeMillis());
                 cal.set(Calendar.HOUR_OF_DAY, hh);
                 cal.set(Calendar.MINUTE,mm);
                 cal.set(Calendar.SECOND,0);
                 cal.set(Calendar.DAY_OF_MONTH,day);
                 // alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), AlarmManager.INTERVAL_DAY, broadcast2);
-                alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), broadcast2);
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), broadcast2);
                 break;
             }
             case 3: { //Asr
@@ -103,13 +105,14 @@ public class PrayerUtils {
                 broadcastIntent.putExtra("NotifId3",type);
                 broadcastIntent.putExtra("NotifTimeMM3",mm);
                 broadcastIntent.putExtra("NotifTimeHH3",hh);
-                PendingIntent broadcast3 = PendingIntent.getBroadcast(context, 3, broadcastIntent ,PendingIntent.FLAG_MUTABLE);
+                PendingIntent broadcast3 = PendingIntent.getBroadcast(context, 3, broadcastIntent ,PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE);
+                cal.setTimeInMillis(System.currentTimeMillis());
                 cal.set(Calendar.HOUR_OF_DAY, hh);
                 cal.set(Calendar.MINUTE,mm);
                 cal.set(Calendar.SECOND,0);
                 cal.set(Calendar.DAY_OF_MONTH,day);
                 // alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), AlarmManager.INTERVAL_DAY, broadcast3);
-                alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), broadcast3);
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), broadcast3);
                 break;
             }
             case 4: { //Maghrib
@@ -118,13 +121,14 @@ public class PrayerUtils {
                 broadcastIntent.putExtra("NotifId4",type);
                 broadcastIntent.putExtra("NotifTimeMM4",mm);
                 broadcastIntent.putExtra("NotifTimeHH4",hh);
-                PendingIntent broadcast4 = PendingIntent.getBroadcast(context,4, broadcastIntent ,PendingIntent.FLAG_MUTABLE);
+                PendingIntent broadcast4 = PendingIntent.getBroadcast(context,4, broadcastIntent ,PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE);
+                cal.setTimeInMillis(System.currentTimeMillis());
                 cal.set(Calendar.HOUR_OF_DAY, hh);
                 cal.set(Calendar.MINUTE,mm);
                 cal.set(Calendar.SECOND,0);
                 cal.set(Calendar.DAY_OF_MONTH,day);
                 // alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), AlarmManager.INTERVAL_DAY, broadcast4);
-                alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), broadcast4);
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), broadcast4);
                 break;
             }
             case 5: { //Isha
@@ -133,12 +137,13 @@ public class PrayerUtils {
                 broadcastIntent.putExtra("NotifId5",type);
                 broadcastIntent.putExtra("NotifTimeMM5",mm);
                 broadcastIntent.putExtra("NotifTimeHH5",hh);
-                PendingIntent broadcast5 = PendingIntent.getBroadcast(context, 5, broadcastIntent ,PendingIntent.FLAG_MUTABLE);
+                PendingIntent broadcast5 = PendingIntent.getBroadcast(context, 5, broadcastIntent ,PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE);
+                cal.setTimeInMillis(System.currentTimeMillis());
                 cal.set(Calendar.HOUR_OF_DAY, hh);
                 cal.set(Calendar.MINUTE,mm);
                 cal.set(Calendar.SECOND,0);
                 cal.set(Calendar.DAY_OF_MONTH,day);
-                alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), broadcast5);
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), broadcast5);
                 break;
             }
 
