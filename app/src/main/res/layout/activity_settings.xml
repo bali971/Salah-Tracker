@@ -714,13 +714,21 @@
         </LinearLayout>
 
     </LinearLayout>
-    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/adView"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        ads:adSize="BANNER"
-        android:translationZ="3dp"
-        ads:adUnitId="@string/banner_adunit_id_prod" />
+        android:layout_height="wrap_content">
+
+        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            ads:adSize="BANNER"
+            android:translationZ="3dp"
+            android:layout_alignParentBottom="true"
+            ads:adUnitId="@string/banner_adunit_id_prod" />
+    </RelativeLayout>
+
+
 
 </LinearLayout>

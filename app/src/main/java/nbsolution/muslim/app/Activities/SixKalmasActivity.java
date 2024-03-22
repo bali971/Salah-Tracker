@@ -18,7 +18,7 @@ public class SixKalmasActivity extends AppCompatActivity implements View.OnClick
 
     TextView kalmaone, kalmatwo, kalmathree, kalmafour, kalmafive, kalmasix;
     ImageView btnCopy1, btnCopy2, btnCopy3, btnCopy4, btnCopy5, btnCopy6;
-    ImageView btnShare1, btnShare2, btnShare3, btnShare4, btnShare5, btnShare6;
+    ImageView btnShare1, btnShare2, btnShare3, btnShare4, btnShare5, btnShare6,backBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +43,7 @@ public class SixKalmasActivity extends AppCompatActivity implements View.OnClick
         btnShare4 = findViewById(R.id.btnShare4);
         btnShare5 = findViewById(R.id.btnShare5);
         btnShare6 = findViewById(R.id.btnShare6);
+        backBtn = findViewById(R.id.backBtn);
 
         btnCopy1.setOnClickListener(this);
         btnCopy2.setOnClickListener(this);
@@ -56,6 +57,13 @@ public class SixKalmasActivity extends AppCompatActivity implements View.OnClick
         btnShare4.setOnClickListener(this);
         btnShare5.setOnClickListener(this);
         btnShare6.setOnClickListener(this);
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getOnBackPressedDispatcher().onBackPressed();
+            }
+        });
 
     }
 
