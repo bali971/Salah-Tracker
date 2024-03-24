@@ -82,6 +82,7 @@ public class Dashboard extends AppCompatActivity {
                     public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
                         // The mInterstitialAd reference will be null until
                         // an ad is loaded.
+                        super.onAdLoaded(interstitialAd);
                         mInterstitialAd = interstitialAd;
                         Log.i(TAG, "onAdLoaded");
                     }
@@ -95,7 +96,7 @@ public class Dashboard extends AppCompatActivity {
                 });
 
         if (mInterstitialAd != null) {
-            mInterstitialAd.show(Dashboard.this);
+            mInterstitialAd.show(this);
         } else {
             Log.d("TAG", "The interstitial ad wasn't ready yet.");
         }

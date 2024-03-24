@@ -67,6 +67,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                     public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
                         // The mInterstitialAd reference will be null until
                         // an ad is loaded.
+                        super.onAdLoaded(interstitialAd);
                         mInterstitialAd = interstitialAd;
                         Log.i(TAG, "onAdLoaded");
                     }

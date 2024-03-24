@@ -42,6 +42,7 @@ public class AzkarCategoriesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_azkar_categories);
+        MobileAds.initialize(this);
         AdRequest adRequest = new AdRequest.Builder().build();
 
         InterstitialAd.load(this,getString(R.string.interstitial_adunit_id_prod), adRequest,
@@ -50,6 +51,7 @@ public class AzkarCategoriesActivity extends AppCompatActivity {
                     public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
                         // The mInterstitialAd reference will be null until
                         // an ad is loaded.
+                        super.onAdLoaded(interstitialAd);
                         mInterstitialAd = interstitialAd;
                         Log.i(TAG, "onAdLoaded");
                     }
@@ -62,13 +64,11 @@ public class AzkarCategoriesActivity extends AppCompatActivity {
                     }
                 });
         if (mInterstitialAd != null) {
-            mInterstitialAd.show(AzkarCategoriesActivity.this);
+            mInterstitialAd.show(this);
         } else {
             Log.d("TAG", "The interstitial ad wasn't ready yet.");
         }
 
-
-        MobileAds.initialize(this);
         mAdView = findViewById(R.id.adView);
         mAdView.loadAd(adRequest);
 

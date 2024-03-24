@@ -35,8 +35,8 @@ public class AboutUs extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        AdRequest adRequest = new AdRequest.Builder().build();
         MobileAds.initialize(this);
+        AdRequest adRequest = new AdRequest.Builder().build();
 
         InterstitialAd.load(this,getString(R.string.interstitial_adunit_id_prod), adRequest,
                 new InterstitialAdLoadCallback() {
@@ -44,6 +44,7 @@ public class AboutUs extends AppCompatActivity {
                     public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
                         // The mInterstitialAd reference will be null until
                         // an ad is loaded.
+                        super.onAdLoaded(interstitialAd);
                         mInterstitialAd = interstitialAd;
                         Log.i(TAG, "onAdLoaded");
                     }
@@ -57,7 +58,7 @@ public class AboutUs extends AppCompatActivity {
                 });
 
         if (mInterstitialAd != null) {
-            mInterstitialAd.show(AboutUs.this);
+            mInterstitialAd.show(this);
         } else {
             Log.d("TAG", "The interstitial ad wasn't ready yet.");
         }

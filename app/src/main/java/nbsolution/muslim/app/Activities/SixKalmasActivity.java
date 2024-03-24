@@ -1,5 +1,6 @@
 package nbsolution.muslim.app.Activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ClipData;
@@ -7,10 +8,18 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 
 import nbsolution.muslim.app.R;
 
@@ -20,10 +29,39 @@ public class SixKalmasActivity extends AppCompatActivity implements View.OnClick
     ImageView btnCopy1, btnCopy2, btnCopy3, btnCopy4, btnCopy5, btnCopy6;
     ImageView btnShare1, btnShare2, btnShare3, btnShare4, btnShare5, btnShare6,backBtn;
 
+    private static final String TAG = "SixKalma";
+    private InterstitialAd mInterstitialAd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_six_kalmas);
+
+        MobileAds.initialize(this);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        InterstitialAd.load(this,getString(R.string.interstitial_adunit_id_prod), adRequest,
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        // The mInterstitialAd reference will be null until
+                        // an ad is loaded.
+                        super.onAdLoaded(interstitialAd);
+                        mInterstitialAd = interstitialAd;
+                        Log.i(TAG, "onAdLoaded");
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        // Handle the error
+                        Log.d(TAG, loadAdError.toString());
+                        mInterstitialAd = null;
+                    }
+                });
+        if (mInterstitialAd != null) {
+            mInterstitialAd.show(this);
+        } else {
+            Log.d("TAG", "The interstitial ad wasn't ready yet.");
+        }
 
         kalmaone = findViewById(R.id.kalmaone);
         kalmatwo = findViewById(R.id.kalmatwo);
