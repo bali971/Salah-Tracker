@@ -84,6 +84,7 @@ public class Dashboard extends AppCompatActivity {
                         // an ad is loaded.
                         super.onAdLoaded(interstitialAd);
                         mInterstitialAd = interstitialAd;
+                        showAds();
                         Log.i(TAG, "onAdLoaded");
                     }
 
@@ -94,12 +95,6 @@ public class Dashboard extends AppCompatActivity {
                         mInterstitialAd = null;
                     }
                 });
-
-        if (mInterstitialAd != null) {
-            mInterstitialAd.show(this);
-        } else {
-            Log.d("TAG", "The interstitial ad wasn't ready yet.");
-        }
 
         drawerLayout = findViewById(R.id.main_drawer_layout);
         menuBtn=findViewById(R.id.menuBtn);
@@ -150,7 +145,24 @@ public class Dashboard extends AppCompatActivity {
 
     }
 
-
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (mInterstitialAd != null) {
+            mInterstitialAd.show(this);
+        } else {
+            System.out.println("working12--");
+            Log.d("TAG", "The interstitial ad wasn't ready yet.");
+        }
+    }
+    public void showAds(){
+        if (mInterstitialAd != null) {
+            mInterstitialAd.show(this);
+        } else {
+            System.out.println("working12--");
+            Log.d("TAG", "The interstitial ad wasn't ready yet.");
+        }
+    }
 
     private void shareApp() {
         try {

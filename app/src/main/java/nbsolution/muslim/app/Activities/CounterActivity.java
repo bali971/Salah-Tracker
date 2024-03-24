@@ -54,6 +54,7 @@ public class CounterActivity extends AppCompatActivity implements View.OnClickLi
                         // The mInterstitialAd reference will be null until
                         // an ad is loaded.
                         super.onAdLoaded(interstitialAd);
+                        showAds();
                         mInterstitialAd = interstitialAd;
                         Log.i(TAG, "onAdLoaded");
                     }
@@ -65,11 +66,6 @@ public class CounterActivity extends AppCompatActivity implements View.OnClickLi
                         mInterstitialAd = null;
                     }
                 });
-        if (mInterstitialAd != null) {
-            mInterstitialAd.show(this);
-        } else {
-            Log.d("TAG", "The interstitial ad wasn't ready yet.");
-        }
 
         mp = MediaPlayer.create(CounterActivity.this, R.raw.tasbeehsound);
 
@@ -123,6 +119,14 @@ public class CounterActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.btnAzkar:
                 startActivity(new Intent(getApplicationContext(), AzkarCategoriesActivity.class));
                 break;
+        }
+    }
+    public void showAds(){
+        if (mInterstitialAd != null) {
+            mInterstitialAd.show(this);
+        } else {
+            System.out.println("working12--");
+            Log.d("TAG", "The interstitial ad wasn't ready yet.");
         }
     }
 }

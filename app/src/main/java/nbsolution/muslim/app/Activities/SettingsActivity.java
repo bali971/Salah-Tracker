@@ -69,6 +69,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                         // an ad is loaded.
                         super.onAdLoaded(interstitialAd);
                         mInterstitialAd = interstitialAd;
+                        showAds();
                         Log.i(TAG, "onAdLoaded");
                     }
 
@@ -79,11 +80,6 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                         mInterstitialAd = null;
                     }
                 });
-        if (mInterstitialAd != null) {
-            mInterstitialAd.show(SettingsActivity.this);
-        } else {
-            Log.d("TAG", "The interstitial ad wasn't ready yet.");
-        }
 
         txtCounterOff=findViewById(R.id.txtCounterOff);
         txtCounterOff.setOnClickListener(this);
@@ -168,6 +164,14 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
             }
         });
 
+    }
+    public void showAds(){
+        if (mInterstitialAd != null) {
+            mInterstitialAd.show(this);
+        } else {
+            System.out.println("working12--");
+            Log.d("TAG", "The interstitial ad wasn't ready yet.");
+        }
     }
 
     void checkAlarmStatus(){

@@ -65,6 +65,9 @@ public class QiblaFinder extends AppCompatActivity {
 
 
         AdRequest adRequest = new AdRequest.Builder().build();
+        MobileAds.initialize(this);
+        AdView mAdView = findViewById(R.id.adView);
+        mAdView.loadAd(adRequest);
 
         InterstitialAd.load(this,getString(R.string.interstitial_adunit_id_prod), adRequest,
                 new InterstitialAdLoadCallback() {
@@ -72,7 +75,9 @@ public class QiblaFinder extends AppCompatActivity {
                     public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
                         // The mInterstitialAd reference will be null until
                         // an ad is loaded.
+                        super.onAdLoaded(interstitialAd);
                         mInterstitialAd = interstitialAd;
+                        showAds();
                         Log.i(TAG, "onAdLoaded");
                     }
 
@@ -83,15 +88,6 @@ public class QiblaFinder extends AppCompatActivity {
                         mInterstitialAd = null;
                     }
                 });
-        if (mInterstitialAd != null) {
-            mInterstitialAd.show(QiblaFinder.this);
-        } else {
-            Log.d("TAG", "The interstitial ad wasn't ready yet.");
-        }
-
-        MobileAds.initialize(this);
-        AdView mAdView = findViewById(R.id.adView);
-        mAdView.loadAd(adRequest);
 
         if (lat != null & lon != null){
             setupCompass();
@@ -115,6 +111,14 @@ public class QiblaFinder extends AppCompatActivity {
         super.onPause();
         if(compass != null) {
             compass.stop();
+        }
+    }
+    public void showAds(){
+        if (mInterstitialAd != null) {
+            mInterstitialAd.show(this);
+        } else {
+            System.out.println("working12--");
+            Log.d("TAG", "The interstitial ad wasn't ready yet.");
         }
     }
 

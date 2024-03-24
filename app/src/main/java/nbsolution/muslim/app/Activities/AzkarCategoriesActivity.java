@@ -53,6 +53,7 @@ public class AzkarCategoriesActivity extends AppCompatActivity {
                         // an ad is loaded.
                         super.onAdLoaded(interstitialAd);
                         mInterstitialAd = interstitialAd;
+                        showAds();
                         Log.i(TAG, "onAdLoaded");
                     }
 
@@ -63,11 +64,6 @@ public class AzkarCategoriesActivity extends AppCompatActivity {
                         mInterstitialAd = null;
                     }
                 });
-        if (mInterstitialAd != null) {
-            mInterstitialAd.show(this);
-        } else {
-            Log.d("TAG", "The interstitial ad wasn't ready yet.");
-        }
 
         mAdView = findViewById(R.id.adView);
         mAdView.loadAd(adRequest);
@@ -92,6 +88,14 @@ public class AzkarCategoriesActivity extends AppCompatActivity {
         azkarAdapter = new AzkarCategoryAdapter(AzkarCategoriesActivity.this, dbManagerAzkar.getCategories("ar"), dbManagerAzkar.getCategories("en"));
         azkarRV.setAdapter(azkarAdapter);
 
+    }
+    public void showAds(){
+        if (mInterstitialAd != null) {
+            mInterstitialAd.show(this);
+        } else {
+            System.out.println("working12--");
+            Log.d("TAG", "The interstitial ad wasn't ready yet.");
+        }
     }
 
 }

@@ -46,6 +46,7 @@ public class AboutUs extends AppCompatActivity {
                         // an ad is loaded.
                         super.onAdLoaded(interstitialAd);
                         mInterstitialAd = interstitialAd;
+                        showAds();
                         Log.i(TAG, "onAdLoaded");
                     }
 
@@ -56,12 +57,6 @@ public class AboutUs extends AppCompatActivity {
                         mInterstitialAd = null;
                     }
                 });
-
-        if (mInterstitialAd != null) {
-            mInterstitialAd.show(this);
-        } else {
-            Log.d("TAG", "The interstitial ad wasn't ready yet.");
-        }
 
         simulateDayNight(/* DAY */ 0);
 
@@ -94,6 +89,14 @@ public class AboutUs extends AppCompatActivity {
             }
         });
         return copyRightsElement;
+    }
+    public void showAds(){
+        if (mInterstitialAd != null) {
+            mInterstitialAd.show(this);
+        } else {
+            System.out.println("working12--");
+            Log.d("TAG", "The interstitial ad wasn't ready yet.");
+        }
     }
 
     void simulateDayNight(int currentSetting) {

@@ -58,6 +58,7 @@ public class PrayerSetup extends AppCompatActivity {
                         // an ad is loaded.
                         super.onAdLoaded(interstitialAd);
                         mInterstitialAd = interstitialAd;
+                        showAds();
                         Log.i(TAG, "onAdLoaded");
                     }
 
@@ -68,12 +69,6 @@ public class PrayerSetup extends AppCompatActivity {
                         mInterstitialAd = null;
                     }
                 });
-
-        if (mInterstitialAd != null) {
-            mInterstitialAd.show(this);
-        } else {
-            Log.d("TAG", "The interstitial ad wasn't ready yet.");
-        }
 
         mFajr=findViewById(R.id.tv_fajr);
         mDuhur=findViewById(R.id.tv_duhr);
@@ -97,6 +92,17 @@ public class PrayerSetup extends AppCompatActivity {
         mCity.setText(city);
         }
 
+    public void showAds(){
+                    if (mInterstitialAd != null) {
+                mInterstitialAd.show(this);
+            } else {
+                System.out.println("working12--");
+                Log.d("TAG", "The interstitial ad wasn't ready yet.");
+            }
+    }
+
+
 
     }
+
 

@@ -47,6 +47,7 @@ public class SixKalmasActivity extends AppCompatActivity implements View.OnClick
                         // an ad is loaded.
                         super.onAdLoaded(interstitialAd);
                         mInterstitialAd = interstitialAd;
+                        showAds();
                         Log.i(TAG, "onAdLoaded");
                     }
 
@@ -57,11 +58,6 @@ public class SixKalmasActivity extends AppCompatActivity implements View.OnClick
                         mInterstitialAd = null;
                     }
                 });
-        if (mInterstitialAd != null) {
-            mInterstitialAd.show(this);
-        } else {
-            Log.d("TAG", "The interstitial ad wasn't ready yet.");
-        }
 
         kalmaone = findViewById(R.id.kalmaone);
         kalmatwo = findViewById(R.id.kalmatwo);
@@ -103,6 +99,14 @@ public class SixKalmasActivity extends AppCompatActivity implements View.OnClick
             }
         });
 
+    }
+    public void showAds(){
+        if (mInterstitialAd != null) {
+            mInterstitialAd.show(this);
+        } else {
+            System.out.println("working12--");
+            Log.d("TAG", "The interstitial ad wasn't ready yet.");
+        }
     }
 
     @Override
