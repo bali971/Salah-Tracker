@@ -80,7 +80,7 @@ public class SixKalmasActivity extends AppCompatActivity implements View.OnClick
                 copytxt("Third", kalmathree.getText().toString());
                 break;
             case R.id.btnCopy4:
-                copytxt("Forth", kalmafour.getText().toString());
+                copytxt("Fourth", kalmafour.getText().toString());
                 break;
             case R.id.btnCopy5:
                 copytxt("Fifth", kalmafive.getText().toString());
