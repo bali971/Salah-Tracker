@@ -41,8 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@color/colorPrimaryDark"
-        android:visibility="gone"
+        android:visibility="visible"
         android:id="@+id/locationLayout"
         android:padding="10dp">
 
@@ -50,7 +49,7 @@
             android:id="@+id/act_profile_et_fname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
+            android:textColor="@color/colorPrimaryDark"
             android:fontFamily="@font/ralewaybold"
             android:text="Location Details:"
             android:paddingLeft="35dp"
@@ -73,15 +72,17 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:orientation="vertical"
+            android:gravity="center"
             android:inputType="textPostalAddress"
             android:paddingBottom="10dp"
-            android:paddingLeft="35dp"
             android:paddingStart="35dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:background="@drawable/btn_bg_signin_stroke"
+                android:layout_marginBottom="5dp"
                 android:gravity="center">
 
                 <TextView
@@ -90,15 +91,16 @@
                     android:text="Country:"
                     android:layout_marginRight="5dp"
                     android:fontFamily="@font/ralewaybold"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/colorPrimaryDark"/>
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:id="@+id/txtCountry"
+                    android:layout_marginEnd="35dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/ralewaybold"
-                    android:textColor="@color/black"
+                    android:textColor="@color/colorPrimaryDark"
                     android:text="Pakistan"/>
 
             </LinearLayout>
@@ -107,6 +109,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:layout_marginTop="5sp"
+                android:background="@drawable/btn_bg_signin_stroke"
                 android:gravity="center">
 
                 <TextView
@@ -115,7 +119,7 @@
                     android:text="City:"
                     android:layout_marginRight="5dp"
                     android:fontFamily="@font/ralewaybold"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/colorPrimaryDark"/>
 
                 <TextView
                     android:layout_width="0dp"
@@ -123,7 +127,7 @@
                     android:id="@+id/txtCity"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/ralewaybold"
-                    android:textColor="@color/black"
+                    android:textColor="@color/colorPrimaryDark"
                     android:text="Rawalpindi"/>
 
             </LinearLayout>
@@ -132,6 +136,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:layout_marginTop="5sp"
+                android:background="@drawable/btn_bg_signin_stroke"
                 android:gravity="center">
 
                 <TextView
@@ -140,7 +146,7 @@
                     android:text="Location:"
                     android:layout_marginRight="5dp"
                     android:fontFamily="@font/ralewaybold"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/colorPrimaryDark"/>
 
                 <TextView
                     android:layout_width="0dp"
@@ -148,11 +154,32 @@
                     android:id="@+id/txtLocation"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/ralewaybold"
-                    android:textColor="@color/black"
+                    android:textColor="@color/colorPrimaryDark"
                     android:text="33.6, 73.9"/>
 
             </LinearLayout>
 
+<!--            <LinearLayout-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:clickable="true"-->
+<!--                android:gravity="center"-->
+<!--                android:id="@+id/btnLayout">-->
+
+<!--                <Button-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:id="@+id/txtUpdateLocation"-->
+<!--                    android:text="Update Location"-->
+<!--                    android:gravity="center"-->
+<!--                    android:textSize="14sp"-->
+<!--                    android:layout_marginTop="5sp"-->
+<!--                    android:background="@drawable/btn_bg_signin_stroke"-->
+<!--                    android:textColor="@color/colorPrimaryDark"-->
+<!--                    android:fontFamily="@font/ralewaysemibold"/>-->
+
+<!--            </LinearLayout>-->
         </LinearLayout>
 
     </LinearLayout>

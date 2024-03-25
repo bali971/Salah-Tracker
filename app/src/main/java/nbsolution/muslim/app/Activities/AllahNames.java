@@ -1,5 +1,6 @@
 package nbsolution.muslim.app.Activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +15,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -35,11 +43,37 @@ public class AllahNames extends AppCompatActivity implements OnItemClickListener
     ImageView backBtn;
     RecyclerView namesRV;
     List<NamesModel> namesArr = new ArrayList<>();
+    private InterstitialAd mInterstitialAd;
+    private static final String TAG = "AllahName";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_allah_names);
+
+        MobileAds.initialize(this);
+        AdRequest adRequest = new AdRequest.Builder().build();
+
+
+        InterstitialAd.load(this,getString(R.string.interstitial_adunit_id_prod), adRequest,
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        // The mInterstitialAd reference will be null until
+                        // an ad is loaded.
+                        super.onAdLoaded(interstitialAd);
+                        mInterstitialAd = interstitialAd;
+                        showAds();
+                        Log.i(TAG, "onAdLoaded");
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        // Handle the error
+                        Log.d(TAG, loadAdError.toString());
+                        mInterstitialAd = null;
+                    }
+                });
 
         namesRV = findViewById(R.id.namesRV);
         namesRV.setLayoutManager(new LinearLayoutManager(this));
@@ -111,6 +145,14 @@ public class AllahNames extends AppCompatActivity implements OnItemClickListener
         intent2.setType("text/plain");
         intent2.putExtra(Intent.EXTRA_TEXT, name);
         startActivity(Intent.createChooser(intent2, "Share via"));
+    }
+    public void showAds(){
+        if (mInterstitialAd != null) {
+            mInterstitialAd.show(this);
+        } else {
+            System.out.println("working12--");
+            Log.d("TAG", "The interstitial ad wasn't ready yet.");
+        }
     }
 
     @Override

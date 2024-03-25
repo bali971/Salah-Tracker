@@ -54,8 +54,8 @@ public class CounterActivity extends AppCompatActivity implements View.OnClickLi
                         // The mInterstitialAd reference will be null until
                         // an ad is loaded.
                         super.onAdLoaded(interstitialAd);
-                        showAds();
                         mInterstitialAd = interstitialAd;
+                        showAds();
                         Log.i(TAG, "onAdLoaded");
                     }
 

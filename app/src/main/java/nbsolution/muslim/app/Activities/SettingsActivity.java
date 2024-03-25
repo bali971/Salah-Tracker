@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -16,6 +17,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -35,9 +37,13 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 
+import java.lang.reflect.Array;
+import java.util.Locale;
+
 public class SettingsActivity extends AppCompatActivity implements View.OnClickListener  {
 
     ImageView backBtn;
+    Button btnLocation;
     MethodsCustomAdapter methodsCustomAdapter;
     int flag = 2;
     private IntentFilter intentFilter;
@@ -55,6 +61,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        Context context = this;
 
         MobileAds.initialize(this);
         AdView mAdView = findViewById(R.id.adView);
@@ -110,6 +117,30 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         checkCounterSound();
 
         flag = SharedClass.getMethod(SettingsActivity.this);
+
+//        btnLocation = findViewById(R.id.txtUpdateLocation);
+//        btnLocation.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                val context: Context = this@SplashActivity
+////                val geocoder = Geocoder(context, Locale.getDefault())
+////                val addresses = geocoder.getFromLocation(latitude, longitude, 5)
+////                if (addresses != null && !addresses.isEmpty()) {
+////                    val address = addresses[0]
+////                    val cityName = address.locality
+////                    val countryName = address.countryName
+////                    SharedClass.setLocationFlag(
+////                            this,
+////                            countryName,
+////                            cityName,
+////                            latitude.toString(),
+////                            longitude.toString(),
+////                            1
+////                    )
+//                Geocoder geocoder = new Geocoder(context, Locale.getDefault());
+//                Array address = geocoder.getFromLocation()
+//            }
+//            });
 
         backBtn = findViewById(R.id.backBtn);
         backBtn.setOnClickListener(new View.OnClickListener() {
