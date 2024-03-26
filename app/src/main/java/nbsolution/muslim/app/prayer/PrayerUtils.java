@@ -9,6 +9,7 @@ import android.os.Build;
 import java.util.Calendar;
 
 import nbsolution.muslim.app.Activities.AlarmReceiver;
+import nbsolution.muslim.app.Activities.DateChangeReceiver;
 import nbsolution.muslim.app.R;
 
 public class PrayerUtils {
@@ -48,6 +49,20 @@ public class PrayerUtils {
 //    }
 
 
+    public static void getNamazTiming(Context context){
+        System.out.println("working12-----12");
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(context, DateChangeReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_IMMUTABLE);
+        Calendar midnight = Calendar.getInstance();
+        midnight.set(Calendar.HOUR_OF_DAY, 0);
+        midnight.set(Calendar.MINUTE, 0);
+        midnight.set(Calendar.SECOND, 0);
+        midnight.set(Calendar.MILLISECOND, 0);
+        alarmManager.setRepeating(AlarmManager.RTC, midnight.getTimeInMillis(),
+                AlarmManager.INTERVAL_DAY, pendingIntent);
+
+    }
     public static void scheduleNotification(Context context, int type, int hh, int mm, int day){
 //        if (NotifMessages.isEmpty() || NotifSalatMessages.isEmpty()) {
 //            NotifMessages(context);

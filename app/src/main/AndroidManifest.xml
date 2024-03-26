@@ -194,6 +194,13 @@
         <service
             android:name=".Helper.GpsTracker"
             android:exported="false" />
+        <receiver android:name=".Activities.DateChangeReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.DATE_CHANGED" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

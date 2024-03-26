@@ -43,6 +43,7 @@ import java.util.Locale;
 
 import nbsolution.muslim.app.Adapters.DashboardAdapter;
 import nbsolution.muslim.app.prayer.PrayerTimesLoader;
+import nbsolution.muslim.app.prayer.PrayerUtils;
 
 public class Dashboard extends AppCompatActivity {
     private static final String TAG = "Dashboard";
@@ -66,6 +67,7 @@ public class Dashboard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+        PrayerUtils.getNamazTiming(this);
         if (shouldCallFunction(this)){
             new PrayerTimesLoader(this).execute();
         }
