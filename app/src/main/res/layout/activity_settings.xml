@@ -81,7 +81,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:background="@drawable/btn_bg_signin_stroke"
                 android:layout_marginBottom="5dp"
                 android:gravity="center">
 
@@ -94,10 +93,8 @@
                     android:textColor="@color/colorPrimaryDark"/>
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
                     android:id="@+id/txtCountry"
-                    android:layout_marginEnd="35dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/ralewaybold"
                     android:textColor="@color/colorPrimaryDark"
@@ -110,7 +107,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="5sp"
-                android:background="@drawable/btn_bg_signin_stroke"
                 android:gravity="center">
 
                 <TextView
@@ -122,8 +118,7 @@
                     android:textColor="@color/colorPrimaryDark"/>
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
                     android:id="@+id/txtCity"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/ralewaybold"
@@ -137,7 +132,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="5sp"
-                android:background="@drawable/btn_bg_signin_stroke"
                 android:gravity="center">
 
                 <TextView
@@ -149,8 +143,7 @@
                     android:textColor="@color/colorPrimaryDark"/>
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
                     android:id="@+id/txtLocation"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/ralewaybold"
@@ -181,6 +174,15 @@
 
 <!--            </LinearLayout>-->
         </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="0.6dp"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@color/colorPrimary"/>
 
     </LinearLayout>
 
