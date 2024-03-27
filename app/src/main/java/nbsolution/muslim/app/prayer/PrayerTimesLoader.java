@@ -11,7 +11,10 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.Date;
 
 import nbsolution.muslim.app.Helper.HttpHandler;
 import nbsolution.muslim.app.R;
@@ -21,7 +24,7 @@ public class PrayerTimesLoader extends AsyncTask<Void, Void, Void> {
 
     String GETPrayerCity;
     String GETCountry;
-    String fajr,duhur,asr,maghrib,isha,sunrise,sunset,islamicDay,islamicMonth,islamicYear, islamicDate,design;
+    String fajr,duhur,asr,maghrib,isha,sunrise,sunset,islamicDay,islamicMonth,islamicYear, islamicDate,design,formattedDate;
     Boolean Passed=false;
     Context context;
     public PrayerTimesLoader(Context context) {
@@ -32,12 +35,17 @@ public class PrayerTimesLoader extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
+        Date currentDate = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        formattedDate = formatter.format(currentDate);
+        // System.out.println("working12 again through receiver");
         //Toast.makeText(MainActivity.this,getString(R.string.loadingprayertimes),Toast.LENGTH_LONG).show();
     }
     @Override
     protected Void doInBackground(Void... arg0) {
         HttpHandler sh = new HttpHandler();
-        String url ="http://api.aladhan.com/v1/timingsByCity?city="+GETPrayerCity+"&country="+GETCountry;
+        String url ="http://api.aladhan.com/v1/timingsByCity/"+formattedDate+"?city="+GETPrayerCity+"&country="+GETCountry;
+        // System.out.println("working12---"+url);
         String jsonStr = sh.makeServiceCall(url);
         //Log.e("TAG", "Response from url: " + jsonStr);
         if (jsonStr != null) {

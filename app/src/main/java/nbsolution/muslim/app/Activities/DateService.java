@@ -11,7 +11,7 @@ import nbsolution.muslim.app.prayer.PrayerTimesLoader;
 public class DateService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        System.out.println("working12-----12s");
+        // System.out.println("working12-----12s");
         // Call your function here
         new PrayerTimesLoader(this).execute();
         return START_STICKY;
