@@ -1,12 +1,5 @@
 package nbsolution.muslim.app.Activities
 
-import nbsolution.muslim.app.Dashboard
-import nbsolution.muslim.app.SharedData.SharedClass
-import nbsolution.muslim.app.databinding.ActivitySplashBinding
-import nbsolution.muslim.app.utils.DialogUtils
-import nbsolution.muslim.app.utils.GeneralUtils
-import nbsolution.muslim.app.utils.PermissionUtils
-import nbsolution.muslim.app.utils.PrefsUtils
 import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -16,12 +9,20 @@ import android.location.Geocoder
 import android.location.LocationManager
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.gms.ads.MobileAds
+import nbsolution.muslim.app.Dashboard
+import nbsolution.muslim.app.Helper.GpsTracker
+import nbsolution.muslim.app.SharedData.SharedClass
+import nbsolution.muslim.app.databinding.ActivitySplashBinding
+import nbsolution.muslim.app.utils.DialogUtils
+import nbsolution.muslim.app.utils.GeneralUtils
+import nbsolution.muslim.app.utils.PermissionUtils
+import nbsolution.muslim.app.utils.PrefsUtils
 import java.io.IOException
 import java.util.Locale
-
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
@@ -40,23 +41,56 @@ class SplashActivity : AppCompatActivity() {
         setContentView(binding.root)
         MobileAds.initialize(this)
         prefs = PrefsUtils(this)
+        val dialogPermission = SharedClass.getDialogPermission(this, "isDialogPermission")
+        val permission = SharedClass.getPermission(this, "isPermissionGranted")
+        val firstTime = SharedClass.checkFirstTime(this, "isFirstTime")
 
-        localBroadcastManager = LocalBroadcastManager.getInstance(this);
-        localBroadcastManager!!.registerReceiver(onNotice, IntentFilter("notice"));
+        localBroadcastManager = LocalBroadcastManager.getInstance(this)
+        localBroadcastManager!!.registerReceiver(onNotice, IntentFilter("notice"))
         dialog = DialogUtils(this, layoutInflater)
         dialog.showProgressDialog()
         locationManager = this.getSystemService(LOCATION_SERVICE) as LocationManager?
 
-        if(SharedClass.getLocationDetails(this, "country").equals("null")) {
+//        if(SharedClass.getLocationDetails(this, "country").equals("null")) {
+//            binding.btnProceed.visibility = View.GONE
+//            PermissionUtils.checkPermissions(this)
+        // }
+        if (firstTime) {
             binding.btnProceed.visibility = View.GONE
-            PermissionUtils.checkPermissions(this)
-        } else {
-            binding.btnProceed.setOnClickListener {
-                PermissionUtils.checkPermissions(this)
-                binding.btnProceed.visibility = View.GONE
+            val gpsService = GpsTracker(this@SplashActivity)
+            val intent = Intent(this, gpsService.javaClass)
+            if (!GeneralUtils.isMyServiceRunning(this, gpsService.javaClass)) {
+                startService(intent)
             }
         }
 
+        binding.btnProceed.setOnClickListener {
+            if (permission) {
+                PermissionUtils.checkPermissions(this)
+                binding.btnProceed.visibility = View.GONE
+            } else if (!permission && !dialogPermission) {
+                PermissionUtils.checkPermissions(this)
+                binding.btnProceed.visibility = View.GONE
+            } else if (!permission && dialogPermission) {
+                val gpsService = GpsTracker(this@SplashActivity)
+                val intent = Intent(this, gpsService.javaClass)
+                if (!GeneralUtils.isMyServiceRunning(this, gpsService.javaClass)) {
+                    startService(intent)
+                }
+            }
+        }
+
+//        binding.btnProceed.setOnClickListener {
+//            if (permission) {
+//                val dashboardIntent = Intent(this, Dashboard::class.java)
+//                startActivity(dashboardIntent)
+//                finish()
+//            } else {
+//                PermissionUtils.checkPermissions(this)
+//                binding.btnProceed.visibility = View.GONE
+//            }
+//        }
+        // }
     }
 
     override fun onPause() {
@@ -78,17 +112,24 @@ class SplashActivity : AppCompatActivity() {
         }
     }
 
-    private val onNotice: BroadcastReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context?, intent: Intent) {
-            // intent can contain anydata
-            val lat = intent.getDoubleExtra("lat", 0.0)
-            val longt = intent.getDoubleExtra("longt", 0.0)
-            setCityDetails(longt, lat);
+    private val onNotice: BroadcastReceiver =
+        object : BroadcastReceiver() {
+            override fun onReceive(
+                context: Context?,
+                intent: Intent,
+            ) {
+                // intent can contain anydata
+                val lat = intent.getDoubleExtra("lat", 0.0)
+                val longt = intent.getDoubleExtra("longt", 0.0)
+                setCityDetails(longt, lat)
+            }
         }
-    }
 
     @Throws(IOException::class)
-    fun setCityDetails(longitude: Double, latitude: Double) {
+    fun setCityDetails(
+        longitude: Double,
+        latitude: Double,
+    ) {
         val context: Context = this@SplashActivity
         val geocoder = Geocoder(context, Locale.getDefault())
         val addresses = geocoder.getFromLocation(latitude, longitude, 5)
@@ -102,12 +143,18 @@ class SplashActivity : AppCompatActivity() {
                 cityName,
                 latitude.toString(),
                 longitude.toString(),
-                1
+                1,
             )
 
             val dashboardIntent = Intent(this, Dashboard::class.java)
-             startActivity(dashboardIntent)
+            startActivity(dashboardIntent)
             finish()
+        } else {
+            Toast.makeText(
+                this,
+                "Location not found, Please restart the application.",
+                Toast.LENGTH_LONG,
+            ).show()
         }
     }
 }

@@ -4,16 +4,23 @@ import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import java.io.IOException;
+import java.util.List;
+
 import nbsolution.muslim.app.Constants;
+import nbsolution.muslim.app.SharedData.SharedClass;
 import nbsolution.muslim.app.utils.PrefsUtils;
 
 public class GpsTracker extends Service implements LocationListener {
@@ -28,7 +35,12 @@ public class GpsTracker extends Service implements LocationListener {
     public GpsTracker(Context context) {
         this.mContext = context;
         utils = new PrefsUtils(mContext);
-        getLocation();
+        if(SharedClass.getDialogPermission(mContext,"isDialogPermission")){
+            getDialogLoction();
+        }
+        else {
+            getLocation();
+        }
     }
 
     // Flag for GPS status
@@ -58,6 +70,19 @@ public class GpsTracker extends Service implements LocationListener {
         Log.d(LOG_TAG, "onStartCommand()");
         // If we get killed, after returning from here, restart
         return START_STICKY;
+    }
+
+    public void getDialogLoction(){
+        String city = SharedClass.getManualLocationDetails(mContext,"city");
+        String country = SharedClass.getManualLocationDetails(mContext,"country");
+        if(city != null && country != null){
+            getLatLongFromCityName(mContext,city,country);
+            if (SharedClass.getDialogPermission(mContext,"isDialogPermission")){
+                double lat = Double.parseDouble(SharedClass.getManualLatLng(mContext, "lat"));
+                double longt = Double.parseDouble(SharedClass.getManualLatLng(mContext, "lng"));
+                sendLocalBroadCast(longt, lat);
+            }
+        }
     }
 
     @SuppressLint("MissingPermission")
@@ -186,6 +211,22 @@ public class GpsTracker extends Service implements LocationListener {
      * */
     public boolean canGetLocation() {
         return this.canGetLocation;
+    }
+    private void getLatLongFromCityName(Context context,String city, String country) {
+        Geocoder geocoder = new Geocoder(context);
+        try {
+            List<Address> addresses = geocoder.getFromLocationName(city + ", " + country, 1);
+            assert addresses != null;
+            if (!addresses.isEmpty()) {
+                double latitude = addresses.get(0).getLatitude();
+                double longitude = addresses.get(0).getLongitude();
+                SharedClass.setManualLatLng(context,String.valueOf(latitude),String.valueOf(longitude));
+            } else {
+                Toast.makeText(context, "No location found for the given city and country", Toast.LENGTH_SHORT).show();
+            }
+        } catch (IOException e) {
+            Toast.makeText(context, "Geocoding error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

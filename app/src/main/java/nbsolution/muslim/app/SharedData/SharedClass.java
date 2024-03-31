@@ -101,6 +101,88 @@ public class SharedClass {
                 break;
         }
     }
+    public static void setDialogPermission(Context context,Boolean permission){
+        preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean("isDialogPermission",permission);
+        editor.apply();
+        editor.commit();
+    }
+    public static Boolean getDialogPermission(Context context, String query) {
+        boolean value = false;
+        preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        if (query.equals("isDialogPermission")) {
+            value = preferences.getBoolean("isDialogPermission", false);
+        }
+        return value;
+    }
+    public static void firstTime(Context context,Boolean firstTime){
+        preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean("isFirstTime",firstTime);
+        editor.apply();
+        editor.commit();
+    }
+    public static Boolean checkFirstTime(Context context, String query) {
+        boolean value = false;
+        preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        if (query.equals("isFirstTime")) {
+            value = preferences.getBoolean("isFirstTime", false);
+        }
+        return value;
+    }
+    public static void setPermission(Context context,Boolean permission){
+        preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean("isPermissionGranted",permission);
+        editor.apply();
+        editor.commit();
+    }
+    public static Boolean getPermission(Context context, String query) {
+        boolean value = false;
+        preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        if (query.equals("isPermissionGranted")) {
+            value = preferences.getBoolean("isPermissionGranted", false);
+        }
+        return value;
+    }
+    public static void setManualLocation(Context context, String city, String country){
+        preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("country", country);
+        editor.putString("city", city);
+        editor.apply();
+        editor.commit();
+    }
+    public static String getManualLocationDetails(Context context, String query) {
+        String value = "null";
+        preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        if (query.equals("country")) {
+            value = preferences.getString("country", "");
+        } else if (query.equals("city")) {
+            value = preferences.getString("city", "");
+        }
+        return value;
+    }
+    public static void setManualLatLng(Context context, String lat, String lng){
+        preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("lat", lat);
+        editor.putString("lng", lng);
+        editor.apply();
+        editor.commit();
+    }
+    public static String getManualLatLng(Context context, String query) {
+        String value = "null";
+        preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        if (query.equals("lat")) {
+            value = preferences.getString("lat", "");
+        } else if (query.equals("lng")) {
+            value = preferences.getString("lng", "");
+        }
+        return value;
+    }
+
 
     public static String getLocationDetails(Context context, String query) {
         String value = "null";

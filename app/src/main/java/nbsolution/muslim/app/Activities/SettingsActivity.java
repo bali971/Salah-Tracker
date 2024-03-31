@@ -160,31 +160,40 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         btnCurrent = findViewById(R.id.btnCurrent);
 
         locationLayout = findViewById(R.id.locationLayout);
-        if (SharedClass.getLocationFlag(SettingsActivity.this) == 0) {
-            locationLayout.setVisibility(View.GONE);
-        } else if (SharedClass.getLocationFlag(SettingsActivity.this) == 1) {
-            btnCurrent.setBackgroundResource(R.drawable.btn_bg_signin_stroke);
-            txtCurrent.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+        if(SharedClass.getPermission(this,"isPermissionGranted")) {
+            if (SharedClass.getLocationFlag(SettingsActivity.this) == 0) {
+                locationLayout.setVisibility(View.GONE);
+            } else if (SharedClass.getLocationFlag(SettingsActivity.this) == 1) {
+               // btnCurrent.setBackgroundResource(R.drawable.btn_bg_signin_stroke);
+                //txtCurrent.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                locationLayout.setVisibility(View.VISIBLE);
+                txtCountry.setText(SharedClass.getLocationDetails(SettingsActivity.this, "country"));
+                txtCity.setText(SharedClass.getLocationDetails(SettingsActivity.this, "city"));
+                txtLocation.setText(SharedClass.getLocationDetails(SettingsActivity.this, "latitude") + "," + SharedClass.getLocationDetails(SettingsActivity.this, "longitude"));
+            } else if (SharedClass.getLocationFlag(SettingsActivity.this) == 2) {
+               // btnCurrent.setBackgroundResource(R.drawable.btn_bg_signin_solid);
+                //txtCurrent.setTextColor(getResources().getColor(R.color.white));
+                locationLayout.setVisibility(View.VISIBLE);
+                txtCountry.setText(SharedClass.getLocationDetails(SettingsActivity.this, "country"));
+                txtCity.setText(SharedClass.getLocationDetails(SettingsActivity.this, "city"));
+                txtLocation.setText(SharedClass.getLocationDetails(SettingsActivity.this, "latitude") + "," + SharedClass.getLocationDetails(SettingsActivity.this, "longitude"));
+            }
+        }else {
+            // btnCurrent.setBackgroundResource(R.drawable.btn_bg_signin_solid);
+           // txtCurrent.setTextColor(getResources().getColor(R.color.white));
             locationLayout.setVisibility(View.VISIBLE);
-            txtCountry.setText(SharedClass.getLocationDetails(SettingsActivity.this, "country"));
-            txtCity.setText(SharedClass.getLocationDetails(SettingsActivity.this, "city"));
-            txtLocation.setText(SharedClass.getLocationDetails(SettingsActivity.this, "latitude") + "," + SharedClass.getLocationDetails(SettingsActivity.this, "longitude"));
-        } else if (SharedClass.getLocationFlag(SettingsActivity.this) == 2) {
-            btnCurrent.setBackgroundResource(R.drawable.btn_bg_signin_solid);
-            txtCurrent.setTextColor(getResources().getColor(R.color.white));
-            locationLayout.setVisibility(View.VISIBLE);
-            txtCountry.setText(SharedClass.getLocationDetails(SettingsActivity.this, "country"));
-            txtCity.setText(SharedClass.getLocationDetails(SettingsActivity.this, "city"));
-            txtLocation.setText(SharedClass.getLocationDetails(SettingsActivity.this, "latitude") + "," + SharedClass.getLocationDetails(SettingsActivity.this, "longitude"));
+            txtCountry.setText(SharedClass.getManualLocationDetails(SettingsActivity.this, "country"));
+            txtCity.setText(SharedClass.getManualLocationDetails(SettingsActivity.this, "city"));
+            txtLocation.setText(SharedClass.getManualLatLng(SettingsActivity.this, "lat") + "," + SharedClass.getManualLatLng(SettingsActivity.this, "lng"));
         }
 
         btnCurrent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btnCurrent.setBackgroundResource(R.drawable.btn_bg_signin_solid);
-                txtCurrent.setTextColor(getResources().getColor(R.color.white));
+               // btnCurrent.setBackgroundResource(R.drawable.btn_bg_signin_solid);
+                //txtCurrent.setTextColor(getResources().getColor(R.color.white));
 
-                displayProgress();
+                // displayProgress();
             }
         });
 

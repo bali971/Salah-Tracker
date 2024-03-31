@@ -158,6 +158,14 @@
                     android:background="@drawable/gradient_blue"
                     android:text="@string/grant_all"
                     android:textColor="@color/white" />
+                <Button
+                    android:layout_width="200dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/btnManually"
+                    android:layout_margin="20dp"
+                    android:background="@drawable/gradient_blue"
+                    android:text="Manually Add City"
+                    android:textColor="@color/white" />
 
             </LinearLayout>
 

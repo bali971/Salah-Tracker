@@ -85,8 +85,6 @@ public class PrayerUtils {
 //        broadcastIntent.putStringArrayListExtra("ArraySalatMessages",NotifSalatMessages);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Calendar cal = Calendar.getInstance();
-        String HH =String.format("%02d", hh);
-        String MM=String.format("%02d", mm);
         switch (type) {
             case 1: { //Fajr
                 /** For testing play around with times below **/

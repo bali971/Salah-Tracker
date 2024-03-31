@@ -31,7 +31,6 @@ import java.util.Random;
 import static nbsolution.muslim.app.Helper.NotifsChannels.CHANNEL_1_ID;
 
 public class AlarmReceiver extends BroadcastReceiver {
-    private Random rng = new Random();
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -115,17 +114,17 @@ public class AlarmReceiver extends BroadcastReceiver {
             createNotif(context, contentIntent5, id5, title5);
         }
 
-        if (id1 != 0) {
-            PrayerUtils.scheduleNotification(context, 1, hh1, mm1, tomorrow);
-        } else if (id2 != 0) {
-            PrayerUtils.scheduleNotification(context, 2, hh2, mm2, tomorrow);
-        } else if (id3 != 0) {
-            PrayerUtils.scheduleNotification(context, 3, hh3, mm3, tomorrow);
-        } else if (id4 != 0) {
-            PrayerUtils.scheduleNotification(context, 4, hh4, mm4, tomorrow);
-        } else if (id5 != 0) {
-            PrayerUtils.scheduleNotification(context, 5, hh5, mm5, tomorrow);
-        }
+//        if (id1 != 0) {
+//            PrayerUtils.scheduleNotification(context, 1, hh1, mm1, tomorrow);
+//        } else if (id2 != 0) {
+//            PrayerUtils.scheduleNotification(context, 2, hh2, mm2, tomorrow);
+//        } else if (id3 != 0) {
+//            PrayerUtils.scheduleNotification(context, 3, hh3, mm3, tomorrow);
+//        } else if (id4 != 0) {
+//            PrayerUtils.scheduleNotification(context, 4, hh4, mm4, tomorrow);
+//        } else if (id5 != 0) {
+//            PrayerUtils.scheduleNotification(context, 5, hh5, mm5, tomorrow);
+//        }
 
 
     }

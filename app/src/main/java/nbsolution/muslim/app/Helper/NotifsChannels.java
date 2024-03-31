@@ -14,14 +14,12 @@ public class NotifsChannels extends Application {
         createNotificationChannels();
     }
     private void createNotificationChannels() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel1 = new NotificationChannel(
-                    CHANNEL_1_ID,
-                    getString(R.string.app_name),
-                    NotificationManager.IMPORTANCE_HIGH
-            );
-            NotificationManager manager = getSystemService(NotificationManager.class);
-            manager.createNotificationChannel(channel1);
-        }
+        NotificationChannel channel1 = new NotificationChannel(
+                CHANNEL_1_ID,
+                getString(R.string.app_name),
+                NotificationManager.IMPORTANCE_HIGH
+        );
+        NotificationManager manager = getSystemService(NotificationManager.class);
+        manager.createNotificationChannel(channel1);
     }
 }

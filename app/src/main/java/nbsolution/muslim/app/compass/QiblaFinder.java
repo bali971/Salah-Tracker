@@ -52,10 +52,19 @@ public class QiblaFinder extends AppCompatActivity {
         ImageView btnButton = findViewById(R.id.backBtn);
         arrowViewQiblat.setVisibility(INVISIBLE);
         arrowViewQiblat.setVisibility(View.GONE);
+        if(SharedClass.getPermission(this,"isPermissionGranted"))
+        {
         lat = SharedClass.getLocationDetails(this,"latitude");
         lon = SharedClass.getLocationDetails(this,"longitude");
         city = SharedClass.getLocationDetails(this,"city");
         country = SharedClass.getLocationDetails(this,"country");
+        }
+        else{
+            lat = SharedClass.getManualLatLng(this,"lat");
+            lon = SharedClass.getManualLatLng(this,"lng");
+            city = SharedClass.getManualLocationDetails(this,"city");
+            country = SharedClass.getManualLocationDetails(this,"country");
+        }
         btnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,8 +101,13 @@ public class QiblaFinder extends AppCompatActivity {
         if (lat != null & lon != null){
             setupCompass();
         }else{
-            lat = SharedClass.getLocationDetails(this,"latitude");
-            lon = SharedClass.getLocationDetails(this,"longitude");
+            if(SharedClass.getPermission(this,"isPermissionGranted")){
+                lat = SharedClass.getLocationDetails(this,"latitude");
+                lon = SharedClass.getLocationDetails(this,"longitude");
+            }else{
+                lat = SharedClass.getManualLatLng(this,"lat");
+                lon = SharedClass.getManualLatLng(this,"lng");
+            }
         }
 
     }

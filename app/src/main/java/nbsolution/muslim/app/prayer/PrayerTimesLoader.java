@@ -29,8 +29,13 @@ public class PrayerTimesLoader extends AsyncTask<Void, Void, Void> {
     Context context;
     public PrayerTimesLoader(Context context) {
         this.context = context;
-        GETPrayerCity = SharedClass.getLocationDetails(context,"city");
-        GETCountry = SharedClass.getLocationDetails(context,"country");
+        if (SharedClass.getPermission(context,"isPermissionGranted")) {
+            GETPrayerCity = SharedClass.getLocationDetails(context, "city");
+            GETCountry = SharedClass.getLocationDetails(context, "country");
+        }else {
+            GETPrayerCity = SharedClass.getManualLocationDetails(context,"city");
+            GETCountry = SharedClass.getManualLocationDetails(context, "country");
+        }
     }
     @Override
     protected void onPreExecute() {
