@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "296662862412",
+    "project_id": "salah-tracker-214f8",
+    "storage_bucket": "salah-tracker-214f8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:296662862412:android:e51f16826be4f829c002e9",
+        "android_client_info": {
+          "package_name": "nbsolution.muslim.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA87sj1sZU45FmZBq4bGHOTG-1wK8NnrpI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

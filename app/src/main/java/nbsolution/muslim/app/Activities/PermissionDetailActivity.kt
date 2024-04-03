@@ -68,7 +68,6 @@ class PermissionDetailActivity : AppCompatActivity(), InputDialogFragment.InputD
                     }
                     SharedClass.setPermission(this, true)
                     SharedClass.setDialogPermission(this, false)
-                    SharedClass.firstTime(this, true)
 
                     val dashboardIntent = Intent(this, Dashboard::class.java)
                     // startActivity(dashboardIntent)
@@ -125,7 +124,6 @@ class PermissionDetailActivity : AppCompatActivity(), InputDialogFragment.InputD
     ) {
         SharedClass.setPermission(this, false)
         SharedClass.setDialogPermission(this, true)
-        SharedClass.firstTime(this, true)
         SharedClass.setManualLocation(this, city, country)
         grantPermissionsForDialog()
     }

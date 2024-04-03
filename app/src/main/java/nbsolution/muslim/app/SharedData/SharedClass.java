@@ -116,21 +116,6 @@ public class SharedClass {
         }
         return value;
     }
-    public static void firstTime(Context context,Boolean firstTime){
-        preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putBoolean("isFirstTime",firstTime);
-        editor.apply();
-        editor.commit();
-    }
-    public static Boolean checkFirstTime(Context context, String query) {
-        boolean value = false;
-        preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        if (query.equals("isFirstTime")) {
-            value = preferences.getBoolean("isFirstTime", false);
-        }
-        return value;
-    }
     public static void setPermission(Context context,Boolean permission){
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = preferences.edit();

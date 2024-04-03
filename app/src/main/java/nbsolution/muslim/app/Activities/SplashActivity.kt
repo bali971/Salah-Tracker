@@ -13,6 +13,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.gms.ads.MobileAds
+import com.google.firebase.FirebaseApp
+import com.google.firebase.analytics.FirebaseAnalytics
 import nbsolution.muslim.app.Dashboard
 import nbsolution.muslim.app.Helper.GpsTracker
 import nbsolution.muslim.app.SharedData.SharedClass
@@ -21,7 +23,6 @@ import nbsolution.muslim.app.utils.DialogUtils
 import nbsolution.muslim.app.utils.GeneralUtils
 import nbsolution.muslim.app.utils.PermissionUtils
 import nbsolution.muslim.app.utils.PrefsUtils
-import java.io.IOException
 import java.util.Locale
 
 @SuppressLint("CustomSplashScreen")
@@ -33,6 +34,7 @@ class SplashActivity : AppCompatActivity() {
     private var locationManager: LocationManager? = null
     var localBroadcastManager: LocalBroadcastManager? = null
     lateinit var prefs: PrefsUtils
+    private var mFirebaseAnalytics: FirebaseAnalytics? = null
     // private val THEME_KEY = "Theme"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +45,8 @@ class SplashActivity : AppCompatActivity() {
         prefs = PrefsUtils(this)
         val dialogPermission = SharedClass.getDialogPermission(this, "isDialogPermission")
         val permission = SharedClass.getPermission(this, "isPermissionGranted")
-        val firstTime = SharedClass.checkFirstTime(this, "isFirstTime")
+
+        FirebaseApp.initializeApp(this)
 
         localBroadcastManager = LocalBroadcastManager.getInstance(this)
         localBroadcastManager!!.registerReceiver(onNotice, IntentFilter("notice"))
@@ -55,14 +58,6 @@ class SplashActivity : AppCompatActivity() {
 //            binding.btnProceed.visibility = View.GONE
 //            PermissionUtils.checkPermissions(this)
         // }
-        if (firstTime) {
-            binding.btnProceed.visibility = View.GONE
-            val gpsService = GpsTracker(this@SplashActivity)
-            val intent = Intent(this, gpsService.javaClass)
-            if (!GeneralUtils.isMyServiceRunning(this, gpsService.javaClass)) {
-                startService(intent)
-            }
-        }
 
         binding.btnProceed.setOnClickListener {
             if (permission) {
@@ -79,6 +74,13 @@ class SplashActivity : AppCompatActivity() {
                 }
             }
         }
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
+        // Log a custom event
+        // Log a custom event
+        val bundle = Bundle()
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "1")
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Install App")
+        mFirebaseAnalytics!!.logEvent(FirebaseAnalytics.Event.SELECT_ITEM, bundle)
 
 //        binding.btnProceed.setOnClickListener {
 //            if (permission) {
@@ -125,7 +127,6 @@ class SplashActivity : AppCompatActivity() {
             }
         }
 
-    @Throws(IOException::class)
     fun setCityDetails(
         longitude: Double,
         latitude: Double,
