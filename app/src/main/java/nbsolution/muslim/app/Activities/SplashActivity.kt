@@ -31,10 +31,10 @@ class SplashActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySplashBinding
     private var isGPSEnabled = false
     private var isNetworkEnabled = false
-    private var locationManager: LocationManager? = null
+    var locationManager: LocationManager? = null
     var localBroadcastManager: LocalBroadcastManager? = null
     lateinit var prefs: PrefsUtils
-    private var mFirebaseAnalytics: FirebaseAnalytics? = null
+    var mFirebaseAnalytics: FirebaseAnalytics? = null
     // private val THEME_KEY = "Theme"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,6 +47,7 @@ class SplashActivity : AppCompatActivity() {
         val permission = SharedClass.getPermission(this, "isPermissionGranted")
 
         FirebaseApp.initializeApp(this)
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
 
         localBroadcastManager = LocalBroadcastManager.getInstance(this)
         localBroadcastManager!!.registerReceiver(onNotice, IntentFilter("notice"))
@@ -60,6 +61,10 @@ class SplashActivity : AppCompatActivity() {
         // }
 
         binding.btnProceed.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "1")
+            bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Install App")
+            mFirebaseAnalytics!!.logEvent(FirebaseAnalytics.Event.SELECT_ITEM, bundle)
             if (permission) {
                 PermissionUtils.checkPermissions(this)
                 binding.btnProceed.visibility = View.GONE
@@ -74,13 +79,6 @@ class SplashActivity : AppCompatActivity() {
                 }
             }
         }
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
-        // Log a custom event
-        // Log a custom event
-        val bundle = Bundle()
-        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "1")
-        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Install App")
-        mFirebaseAnalytics!!.logEvent(FirebaseAnalytics.Event.SELECT_ITEM, bundle)
 
 //        binding.btnProceed.setOnClickListener {
 //            if (permission) {
@@ -100,7 +98,7 @@ class SplashActivity : AppCompatActivity() {
         dialog.hideProgressDialog()
     }
 
-    override fun onResume() {
+    public override fun onResume() {
         super.onResume()
         // Getting GPS status
         isGPSEnabled = locationManager!!.isProviderEnabled(LocationManager.GPS_PROVIDER)
