@@ -11,6 +11,7 @@ import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -74,7 +75,6 @@ public class QiblaFinder extends AppCompatActivity {
 
 
         AdRequest adRequest = new AdRequest.Builder().build();
-        MobileAds.initialize(this);
         AdView mAdView = findViewById(R.id.adView);
         mAdView.loadAd(adRequest);
 
@@ -190,32 +190,38 @@ public class QiblaFinder extends AppCompatActivity {
 
     public void fetch_GPS(){
         double result = 0;
-        double latitude = Double.parseDouble(lat);
-        double longitude = Double.parseDouble(lon);
-        if(latitude != 0 && longitude != 0){
-            if(latitude < 0.001 && longitude < 0.001) {
+
+        if (lat != null && lon != null) {
+            double latitude = Double.parseDouble(lat);
+            double longitude = Double.parseDouble(lon);
+            if(latitude != 0 && longitude != 0){
+                if(latitude < 0.001 && longitude < 0.001) {
+                    arrowViewQiblat.setVisibility(INVISIBLE);
+                    arrowViewQiblat.setVisibility(View.GONE);
+                    text_down.setText(getResources().getString(R.string.locationunready));
+                }else{
+                    double longitude2 = 39.826209; // Kaabah Position https://www.latlong.net/place/kaaba-mecca-saudi-arabia-12639.html
+                    double longitude1 = longitude;
+                    double latitude2 = Math.toRadians(21.422507); // Kaabah Position https://www.latlong.net/place/kaaba-mecca-saudi-arabia-12639.html
+                    double latitude1 = Math.toRadians(latitude);
+                    double longDiff= Math.toRadians(longitude2-longitude1);
+                    double y= Math.sin(longDiff)*Math.cos(latitude2);
+                    double x=Math.cos(latitude1)*Math.sin(latitude2)-Math.sin(latitude1)*Math.cos(latitude2)*Math.cos(longDiff);
+                    result = (Math.toDegrees(Math.atan2(y, x))+360)%360;
+                    position = (float) result;
+                    arrowViewQiblat .setVisibility(View.VISIBLE);
+                    text_down.setText(city+","+country);
+
+                }
+            }else{
                 arrowViewQiblat.setVisibility(INVISIBLE);
                 arrowViewQiblat.setVisibility(View.GONE);
-                text_down.setText(getResources().getString(R.string.locationunready));
-            }else{
-                double longitude2 = 39.826209; // Kaabah Position https://www.latlong.net/place/kaaba-mecca-saudi-arabia-12639.html
-                double longitude1 = longitude;
-                double latitude2 = Math.toRadians(21.422507); // Kaabah Position https://www.latlong.net/place/kaaba-mecca-saudi-arabia-12639.html
-                double latitude1 = Math.toRadians(latitude);
-                double longDiff= Math.toRadians(longitude2-longitude1);
-                double y= Math.sin(longDiff)*Math.cos(latitude2);
-                double x=Math.cos(latitude1)*Math.sin(latitude2)-Math.sin(latitude1)*Math.cos(latitude2)*Math.cos(longDiff);
-                result = (Math.toDegrees(Math.atan2(y, x))+360)%360;
-                 position = (float) result;
-                arrowViewQiblat .setVisibility(View.VISIBLE);
-                text_down.setText(city+","+country);
-
+                text_down.setText(getResources().getString(R.string.gpsplz));
             }
-        }else{
-            arrowViewQiblat.setVisibility(INVISIBLE);
-            arrowViewQiblat.setVisibility(View.GONE);
-            text_down.setText(getResources().getString(R.string.gpsplz));
+        }else {
+            Toast.makeText(this, "Location not found, Please restart the application.", Toast.LENGTH_LONG).show();
         }
+
     }
 
 

@@ -42,7 +42,6 @@ public class AzkarCategoriesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_azkar_categories);
-        MobileAds.initialize(this);
         AdRequest adRequest = new AdRequest.Builder().build();
 
         InterstitialAd.load(this,getString(R.string.interstitial_adunit_id_prod), adRequest,

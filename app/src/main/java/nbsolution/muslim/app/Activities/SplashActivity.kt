@@ -131,29 +131,33 @@ class SplashActivity : AppCompatActivity() {
     ) {
         val context: Context = this@SplashActivity
         val geocoder = Geocoder(context, Locale.getDefault())
-        val addresses = geocoder.getFromLocation(latitude, longitude, 5)
-        if (addresses != null && !addresses.isEmpty()) {
-            val address = addresses[0]
-            val cityName = address.locality
-            val countryName = address.countryName
-            SharedClass.setLocationFlag(
-                this,
-                countryName,
-                cityName,
-                latitude.toString(),
-                longitude.toString(),
-                1,
-            )
+        if (latitude != 0.0 && longitude != 0.0) {
+            val addresses = geocoder.getFromLocation(latitude, longitude, 5)
+            if (addresses != null && !addresses.isEmpty()) {
+                val address = addresses[0]
+                val cityName = address.locality
+                val countryName = address.countryName
+                SharedClass.setLocationFlag(
+                    this,
+                    countryName,
+                    cityName,
+                    latitude.toString(),
+                    longitude.toString(),
+                    1,
+                )
 
-            val dashboardIntent = Intent(this, Dashboard::class.java)
-            startActivity(dashboardIntent)
-            finish()
+                val dashboardIntent = Intent(this, Dashboard::class.java)
+                startActivity(dashboardIntent)
+                finish()
+            } else {
+                Toast.makeText(
+                    this,
+                    "Location not found, Please restart the application.",
+                    Toast.LENGTH_LONG,
+                ).show()
+            }
         } else {
-            Toast.makeText(
-                this,
-                "Location not found, Please restart the application.",
-                Toast.LENGTH_LONG,
-            ).show()
+            PermissionUtils.checkPermissions(context)
         }
     }
 }

@@ -44,7 +44,6 @@ public class PrayerSetup extends AppCompatActivity {
         islamicDate = salatpref.getString("islamicDate","defValue");
         city = SharedClass.getLocationDetails(this,"city");
 
-        MobileAds.initialize(this);
         AdView mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);

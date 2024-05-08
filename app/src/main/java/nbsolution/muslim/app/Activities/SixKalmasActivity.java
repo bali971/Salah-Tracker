@@ -37,7 +37,6 @@ public class SixKalmasActivity extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_six_kalmas);
 
-        MobileAds.initialize(this);
         AdRequest adRequest = new AdRequest.Builder().build();
         InterstitialAd.load(this,getString(R.string.interstitial_adunit_id_prod), adRequest,
                 new InterstitialAdLoadCallback() {

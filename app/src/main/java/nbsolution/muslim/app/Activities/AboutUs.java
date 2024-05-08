@@ -34,8 +34,6 @@ public class AboutUs extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        MobileAds.initialize(this);
         AdRequest adRequest = new AdRequest.Builder().build();
 
         InterstitialAd.load(this,getString(R.string.interstitial_adunit_id_prod), adRequest,

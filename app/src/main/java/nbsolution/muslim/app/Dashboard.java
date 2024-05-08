@@ -78,11 +78,9 @@ public class Dashboard extends AppCompatActivity {
         if (shouldCallFunction(this)){
             new PrayerTimesLoader(this).execute();
         }
-        MobileAds.initialize(this);
         AdView mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
-        MobileAds.initialize(this);
 
         InterstitialAd.load(this,getString(R.string.interstitial_adunit_id_prod), adRequest,
                 new InterstitialAdLoadCallback() {

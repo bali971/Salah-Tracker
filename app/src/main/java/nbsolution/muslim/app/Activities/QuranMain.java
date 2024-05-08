@@ -11,9 +11,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -33,6 +39,9 @@ public class QuranMain extends AppCompatActivity {
   SharedPreferences dbVersionPrefs = null;
   SharedPreferences sharedPreferences;
   ProgressDialog progressDialog;
+  private InterstitialAd mInterstitialAd;
+  private static final String TAG = "QuranMain";
+
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +50,27 @@ public class QuranMain extends AppCompatActivity {
 
 //    Toolbar toolbar = findViewById(R.id.toolbar);
 //    setSupportActionBar(toolbar);
+    AdRequest adRequest = new AdRequest.Builder().build();
+
+    InterstitialAd.load(this,getString(R.string.interstitial_adunit_id_prod), adRequest,
+            new InterstitialAdLoadCallback() {
+              @Override
+              public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                // The mInterstitialAd reference will be null until
+                // an ad is loaded.
+                super.onAdLoaded(interstitialAd);
+                mInterstitialAd = interstitialAd;
+                showAds();
+                Log.i(TAG, "onAdLoaded");
+              }
+
+              @Override
+              public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                // Handle the error
+                Log.d(TAG, loadAdError.toString());
+                mInterstitialAd = null;
+              }
+            });
 
     backBtn = findViewById(R.id.backBtn);
     backBtn.setOnClickListener(new View.OnClickListener() {
@@ -84,6 +114,16 @@ public class QuranMain extends AppCompatActivity {
       }
     } // checking sharedPrefs finished
   }
+
+  public void showAds(){
+    if (mInterstitialAd != null) {
+      mInterstitialAd.show(this);
+    } else {
+      System.out.println("working12--");
+      Log.d("TAG", "The interstitial ad wasn't ready yet.");
+    }
+  }
+
 
   public boolean setLanguage() {
 

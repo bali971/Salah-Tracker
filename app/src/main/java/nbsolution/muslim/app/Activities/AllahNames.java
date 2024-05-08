@@ -51,7 +51,6 @@ public class AllahNames extends AppCompatActivity implements OnItemClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_allah_names);
 
-        MobileAds.initialize(this);
         AdRequest adRequest = new AdRequest.Builder().build();
 
 
