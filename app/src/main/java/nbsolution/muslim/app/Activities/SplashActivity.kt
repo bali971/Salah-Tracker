@@ -121,7 +121,11 @@ class SplashActivity : AppCompatActivity() {
                 // intent can contain anydata
                 val lat = intent.getDoubleExtra("lat", 0.0)
                 val longt = intent.getDoubleExtra("longt", 0.0)
-                setCityDetails(longt, lat)
+                if (lat != 0.0 && longt != 0.0) {
+                    setCityDetails(longt, lat)
+                } else {
+                    PermissionUtils.checkPermissions(context)
+                }
             }
         }
 
@@ -131,11 +135,11 @@ class SplashActivity : AppCompatActivity() {
     ) {
         val context: Context = this@SplashActivity
         val geocoder = Geocoder(context, Locale.getDefault())
-        if (latitude != 0.0 && longitude != 0.0) {
+        if (latitude != 0.0 && longitude != 0.0 && Geocoder.isPresent()) {
             val addresses = geocoder.getFromLocation(latitude, longitude, 5)
             if (addresses != null && !addresses.isEmpty()) {
                 val address = addresses[0]
-                val cityName = address.locality
+                val cityName = if (address.locality == null) address.subAdminArea else address.locality
                 val countryName = address.countryName
                 SharedClass.setLocationFlag(
                     this,
